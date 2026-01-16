@@ -281,3 +281,40 @@ func TestOpenAPIDefaultResponse(t *testing.T) {
 		})
 	}
 }
+
+func TestOpenAPIWildcardBodyDedup(t *testing.T) {
+	for _, tt := range openapiTests {
+		fixture := path.Join(tt.path, "openapi_wildcard_body_dedup.yaml")
+		if _, err := os.Stat(fixture); errors.Is(err, os.ErrNotExist) {
+			if !regenerateFixtures {
+				continue
+			}
+		}
+		t.Run(tt.name, func(t *testing.T) {
+			// Run protoc and the protoc-gen-openapi plugin to generate an OpenAPI spec with wildcard body dedup.
+			err := exec.Command("protoc",
+				"-I", "../../",
+				"-I", "../../third_party",
+				"-I", "examples",
+				path.Join(tt.path, tt.protofile),
+				"--openapi_out=wildcard_body_dedup=true:.").Run()
+			if err != nil {
+				t.Fatalf("protoc failed: %+v", err)
+			}
+			if regenerateFixtures {
+				err := CopyFixture(TempFile, fixture)
+				if err != nil {
+					t.Fatalf("Can't generate fixture: %+v", err)
+				}
+			} else {
+				// Verify that the generated spec matches our expected version.
+				err = exec.Command("diff", TempFile, fixture).Run()
+				if err != nil {
+					t.Fatalf("diff failed: %+v", err)
+				}
+			}
+			// if the test succeeded, clean up
+			os.Remove(TempFile)
+		})
+	}
+}
