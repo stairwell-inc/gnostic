@@ -520,6 +520,14 @@ func (g *OpenAPIv3Generator) buildOperationV3(
 
 		// Add the named path parameters to the operation parameters.
 		for _, namedPathParameter := range namedPathParameters {
+			var fieldDescription string
+			field := g.findField(namedPathParameter, inputMessage)
+			if field != nil {
+				fieldDescription = g.filterCommentString(field.Comments.Leading)
+			}
+			if fieldDescription == "" {
+				fieldDescription = "The " + namedPathParameter + " id."
+			}
 			parameters = append(parameters,
 				&v3.ParameterOrReference{
 					Oneof: &v3.ParameterOrReference_Parameter{
@@ -527,7 +535,7 @@ func (g *OpenAPIv3Generator) buildOperationV3(
 							Name:        namedPathParameter,
 							In:          "path",
 							Required:    true,
-							Description: "The " + namedPathParameter + " id.",
+							Description: fieldDescription,
 							Schema: &v3.SchemaOrReference{
 								Oneof: &v3.SchemaOrReference_Schema{
 									Schema: &v3.Schema{
