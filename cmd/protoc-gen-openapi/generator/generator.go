@@ -438,6 +438,7 @@ func (g *OpenAPIv3Generator) _buildQueryParamsV3(field *protogen.Field, depths m
 // buildOperationV3 constructs an operation for a set of values.
 func (g *OpenAPIv3Generator) buildOperationV3(
 	d *v3.Document,
+	method *protogen.Method,
 	operationID string,
 	tagName string,
 	description string,
@@ -520,26 +521,60 @@ func (g *OpenAPIv3Generator) buildOperationV3(
 		newPath := strings.Join(parts, "/")
 		path = strings.Replace(path, matches[0], newPath, 1)
 
+		// Build a map of path parameter hints from the method options.
+		hints := map[string]*v3.PathParamHint{}
+		if ext := proto.GetExtension(method.Desc.Options(), v3.E_PathParamHints); ext != nil {
+			if paramHints, ok := ext.(*v3.PathParamHints); ok && paramHints != nil {
+				for _, hint := range paramHints.GetHint() {
+					hints[hint.GetName()] = hint
+				}
+			}
+		}
+
 		// Add the named path parameters to the operation parameters.
 		for _, namedPathParameter := range namedPathParameters {
-			parameters = append(parameters,
-				&v3.ParameterOrReference{
-					Oneof: &v3.ParameterOrReference_Parameter{
-						Parameter: &v3.Parameter{
-							Name:        namedPathParameter,
-							In:          "path",
-							Required:    true,
-							Description: "The " + namedPathParameter + " id.",
-							Schema: &v3.SchemaOrReference{
-								Oneof: &v3.SchemaOrReference_Schema{
-									Schema: &v3.Schema{
-										Type: "string",
-									},
-								},
-							},
+			param := &v3.Parameter{
+				Name:        namedPathParameter,
+				In:          "path",
+				Required:    true,
+				Description: "The " + namedPathParameter + " id.",
+				Schema: &v3.SchemaOrReference{
+					Oneof: &v3.SchemaOrReference_Schema{
+						Schema: &v3.Schema{
+							Type: "string",
 						},
 					},
-				})
+				},
+			}
+			if hint, ok := hints[namedPathParameter]; ok {
+				if hint.GetDescription() != "" {
+					param.Description = hint.GetDescription()
+				}
+				examples := hint.GetExample()
+				switch len(examples) {
+				case 0:
+				case 1:
+					param.Example = &v3.Any{Yaml: examples[0]}
+				default:
+					param.Examples = &v3.ExamplesOrReferences{
+						AdditionalProperties: make([]*v3.NamedExampleOrReference, 0, len(examples)),
+					}
+					for i, ex := range examples {
+						param.Examples.AdditionalProperties = append(param.Examples.AdditionalProperties,
+							&v3.NamedExampleOrReference{
+								Name: fmt.Sprintf("example%d", i+1),
+								Value: &v3.ExampleOrReference{
+									Oneof: &v3.ExampleOrReference_Example{
+										Example: &v3.Example{Value: &v3.Any{Yaml: ex}},
+									},
+								},
+							})
+					}
+				}
+			}
+			parameters = append(parameters, &v3.ParameterOrReference{
+				Oneof: &v3.ParameterOrReference_Parameter{Parameter: param},
+			})
 		}
 	}
 
@@ -922,7 +957,7 @@ func (g *OpenAPIv3Generator) addPathsToDocumentV3(d *v3.Document, services []*pr
 					defaultHost := proto.GetExtension(service.Desc.Options(), annotations.E_DefaultHost).(string)
 
 					op, path2 := g.buildOperationV3(
-						d, operationID, service.GoName, comment, defaultHost, path, body, inputMessage, outputMessage)
+						d, method, operationID, service.GoName, comment, defaultHost, path, body, inputMessage, outputMessage)
 
 					// Merge any `Operation` annotations with the current
 					extOperation := proto.GetExtension(method.Desc.Options(), v3.E_Operation)
