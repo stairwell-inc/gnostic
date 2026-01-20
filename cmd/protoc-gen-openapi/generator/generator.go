@@ -36,16 +36,16 @@ import (
 )
 
 type Configuration struct {
-	Version            *string
-	Title              *string
-	Description        *string
-	Naming             *string
-	FQSchemaNaming     *bool
-	EnumType           *string
-	CircularDepth      *int
-	DefaultResponse    *bool
-	OutputMode         *string
-	WildcardBodyDedup  *bool
+	Version           *string
+	Title             *string
+	Description       *string
+	Naming            *string
+	FQSchemaNaming    *bool
+	EnumType          *string
+	CircularDepth     *int
+	DefaultResponse   *bool
+	OutputMode        *string
+	WildcardBodyDedup *bool
 }
 
 const (
@@ -522,14 +522,6 @@ func (g *OpenAPIv3Generator) buildOperationV3(
 
 		// Add the named path parameters to the operation parameters.
 		for _, namedPathParameter := range namedPathParameters {
-			var fieldDescription string
-			field := g.findField(namedPathParameter, inputMessage)
-			if field != nil {
-				fieldDescription = g.filterCommentString(field.Comments.Leading)
-			}
-			if fieldDescription == "" {
-				fieldDescription = "The " + namedPathParameter + " id."
-			}
 			parameters = append(parameters,
 				&v3.ParameterOrReference{
 					Oneof: &v3.ParameterOrReference_Parameter{
@@ -537,7 +529,7 @@ func (g *OpenAPIv3Generator) buildOperationV3(
 							Name:        namedPathParameter,
 							In:          "path",
 							Required:    true,
-							Description: fieldDescription,
+							Description: "The " + namedPathParameter + " id.",
 							Schema: &v3.SchemaOrReference{
 								Oneof: &v3.SchemaOrReference_Schema{
 									Schema: &v3.Schema{
