@@ -17,8 +17,8 @@ github.com/pkg/diff v0.0.0-20241224192749-4e6772a4315c h1:8TRxBMS/YsupXoOiGKHr9Z
 github.com/pkg/diff v0.0.0-20241224192749-4e6772a4315c/go.mod h1:pJLUxLENpZxwdsKMEsNbx1VGcRFpLqf3715MtcvvzbA=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
-github.com/stairwell-inc/gnostic-models v0.0.0-20260118025452-59f53dcf5c90 h1:wlHSWtypCUEH+Qppr4+R9BBRniACwuSZG5U7uj7Dp1A=
-github.com/stairwell-inc/gnostic-models v0.0.0-20260118025452-59f53dcf5c90/go.mod h1:whL5G0m6dmc5cPxKc5bdKdEN3UjI7OUGxBlw57miDrQ=
+github.com/stairwell-inc/gnostic-models v0.0.0-20260121212320-b82faa7ed954 h1:mgZsLNPWRl/iudksa+mrE16wRnjIrllPBbKU3klcxwQ=
+github.com/stairwell-inc/gnostic-models v0.0.0-20260121212320-b82faa7ed954/go.mod h1:whL5G0m6dmc5cPxKc5bdKdEN3UjI7OUGxBlw57miDrQ=
 github.com/stoewer/go-strcase v1.3.1 h1:iS0MdW+kVTxgMoE1LAZyMiYJFKlOzLooE4MxjirtkAs=
 github.com/stoewer/go-strcase v1.3.1/go.mod h1:fAH5hQ5pehh+j3nZfvwdk2RgEgQjAoM8wodgtPmh1xo=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
