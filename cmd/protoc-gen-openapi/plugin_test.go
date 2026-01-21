@@ -49,8 +49,8 @@ func TestGenOpenAPI(t *testing.T) {
 	fixtureTest(t, "openapiv3annotations", "examples/tests/openapiv3annotations/message.proto")
 	fixtureTest(t, "path parameters", "examples/tests/pathparams/message.proto")
 	fixtureTest(t, "protobuf types", "examples/tests/protobuftypes/message.proto")
-	optionFixtureTest(t, "json options", "examples/tests/jsonoptions/message.proto", "naming=json")
-	optionFixtureTest(t, "string enums", "examples/tests/enumoptions/message.proto", "enum_type=string", "naming=json")
+	fixtureTest(t, "json options", "examples/tests/jsonoptions/message.proto")
+	optionFixtureTest(t, "string enums", "examples/tests/enumoptions/message.proto", "enum_type=string")
 	optionFixtureTest(t, "wildcard_body_dedup", "examples/tests/wildcard_body_dedup/message.proto", "wildcard_body_dedup=true")
 	optionFixtureTest(t, "no_default_response", "examples/tests/no_default_response/message.proto", "default_response=false")
 	optionFixtureTest(t, "circular depth", "examples/tests/circulardepth/message.proto", "depth=3")
@@ -145,13 +145,13 @@ func TestMain(m *testing.M) {
 // openapi.yaml fixture in the same directory. It will also verify that the
 // output is changed from the default settings and fail the test if they are the
 // same.
-func optionFixtureTest(t *testing.T, testName string, protoFile string, pluginArgs ...string) {
+func optionFixtureTest(t *testing.T, testName string, protoFile string, pluginArg string) {
 	t.Helper()
 	t.Run(testName, func(t *testing.T) {
 		t.Helper()
 		fixtureDir := filepath.Dir(protoFile)
 		protoFiles := []string{protoFile}
-		outputDir, err := generateOpenAPI(t, protoFiles, pluginArgs...)
+		outputDir, err := generateOpenAPI(t, protoFiles, pluginArg)
 		if err != nil {
 			t.Fatalf("generating openapi: %v", err)
 		}
@@ -229,7 +229,6 @@ func protocArgs(protoFiles []string, outputDir string) []string {
 		"--plugin", "protoc-gen-openapi=" + pluginPath,
 	}, protoFiles...)
 	return append(args,
-		"--openapi_opt=naming=proto",
 		"--openapi_out="+outputDir,
 	)
 }

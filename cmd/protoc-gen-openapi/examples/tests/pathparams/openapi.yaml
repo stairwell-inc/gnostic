@@ -6,18 +6,18 @@ info:
     title: Messaging API
     version: 0.0.1
 paths:
-    /v1/messages/{message_id}:
+    /v1/messages/{messageId}:
         get:
             tags:
                 - Messaging
             operationId: Messaging_GetMessage
             parameters:
-                - name: message_id
+                - name: messageId
                   in: path
                   required: true
                   schema:
                     type: string
-                - name: user_id
+                - name: userId
                   in: query
                   schema:
                     type: string
@@ -39,7 +39,7 @@ paths:
                 - Messaging
             operationId: Messaging_CreateMessage
             parameters:
-                - name: message_id
+                - name: messageId
                   in: path
                   required: true
                   schema:
@@ -89,18 +89,18 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
-    /v1/users/{user_id}/messages/{message_id}:
+    /v1/users/{userId}/messages/{messageId}:
         get:
             tags:
                 - Messaging
             operationId: Messaging_GetUserMessage
             parameters:
-                - name: user_id
+                - name: userId
                   in: path
                   required: true
                   schema:
                     type: string
-                - name: message_id
+                - name: messageId
                   in: path
                   required: true
                   schema:
@@ -131,9 +131,9 @@ components:
         Message:
             type: object
             properties:
-                message_id:
+                messageId:
                     type: string
-                user_id:
+                userId:
                     type: string
                 content:
                     type: string

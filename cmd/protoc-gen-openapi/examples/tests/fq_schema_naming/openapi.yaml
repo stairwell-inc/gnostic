@@ -14,7 +14,7 @@ paths:
             description: test method
             operationId: TestService_TestMethod
             parameters:
-                - name: request_id
+                - name: requestId
                   in: query
                   description: The ID of the request
                   schema:
@@ -61,7 +61,7 @@ components:
         tests.fq_schema_naming.message.v1.TestResponse:
             type: object
             properties:
-                response_id:
+                responseId:
                     type: string
                     description: The ID of the response
             description: test response message

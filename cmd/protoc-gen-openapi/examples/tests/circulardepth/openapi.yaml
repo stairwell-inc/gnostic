@@ -6,13 +6,13 @@ info:
     title: Messaging API
     version: 0.0.1
 paths:
-    /v1/messages/{message_id}:
+    /v1/messages/{messageId}:
         get:
             tags:
                 - Messaging
             operationId: Messaging_GetMessage
             parameters:
-                - name: message_id
+                - name: messageId
                   in: path
                   required: true
                   schema:
@@ -55,7 +55,7 @@ components:
         Message:
             type: object
             properties:
-                message_id:
+                messageId:
                     type: string
                 sub:
                     $ref: '#/components/schemas/Sub'

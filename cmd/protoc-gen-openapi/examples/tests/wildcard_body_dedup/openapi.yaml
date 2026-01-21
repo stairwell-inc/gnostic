@@ -6,13 +6,13 @@ info:
     title: Messaging API
     version: 0.0.1
 paths:
-    /v1/messages/{message_id}:
+    /v1/messages/{messageId}:
         patch:
             tags:
                 - Messaging
             operationId: Messaging_UpdateMessage
             parameters:
-                - name: message_id
+                - name: messageId
                   in: path
                   required: true
                   schema:
@@ -49,7 +49,7 @@ components:
         Message:
             type: object
             properties:
-                message_id:
+                messageId:
                     type: string
                 text:
                     type: string
