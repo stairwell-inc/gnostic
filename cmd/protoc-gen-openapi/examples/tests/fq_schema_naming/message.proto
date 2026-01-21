@@ -1,4 +1,4 @@
-// Copyright 2020 Google LLC.
+// Copyright 2025 Google LLC.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,25 +15,28 @@
 
 syntax = "proto3";
 
-package tests.additional_bindings.message.v1;
+package tests.fq_schema_naming.message.v1;
 
 import "google/api/annotations.proto";
 
-option go_package = "github.com/google/gnostic/apps/protoc-gen-openapi/examples/tests/additional_bindings/message/v1;message";
+option go_package = "github.com/google/gnostic/apps/protoc-gen-openapi/examples/tests/fq_schema_naming/message/v1;message";
 
-service Messaging {
-  rpc UpdateMessage(Message) returns (Message) {
-    option (google.api.http) = {
-      patch: "/v1/messages/{message_id}"
-      body: "text"
-      additional_bindings: {
-        patch: "/v1/messages"
-        body: "*"
-      }
-    };
+// Test service for fq naming
+service TestService {
+  // test method
+  rpc TestMethod(TestRequest) returns (TestResponse) {
+    option (google.api.http) = {get: "/v1/test"};
   }
 }
-message Message {
-  string message_id = 1;
-  string text = 2;
+
+// test request message
+message TestRequest {
+  // The ID of the request
+  string request_id = 1;
+}
+
+// test response message
+message TestResponse {
+  // The ID of the response
+  string response_id = 1;
 }

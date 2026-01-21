@@ -17,16 +17,14 @@ syntax = "proto3";
 
 package tests.rpctypes.message.v1;
 
-import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
 import "google/rpc/status.proto";
 
 option go_package = "github.com/google/gnostic/apps/protoc-gen-openapi/examples/tests/rpctypes/message/v1;message";
 
 service Status {
   rpc GetStatus(google.protobuf.Empty) returns (google.rpc.Status) {
-    option(google.api.http) = {
-        get: "/v1/status"
-    };
+    option (google.api.http) = {get: "/v1/status"};
   }
 }

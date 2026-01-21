@@ -25,9 +25,7 @@ option go_package = "github.com/google/gnostic/apps/protoc-gen-openapi/examples/
 service TestService {
   // TestMethod demonstrates single-line linter comment filtering
   rpc TestMethod(TestRequest) returns (TestResponse) {
-    option (google.api.http) = {
-      get: "/v1/test"
-    };
+    option (google.api.http) = {get: "/v1/test"};
   }
 }
 

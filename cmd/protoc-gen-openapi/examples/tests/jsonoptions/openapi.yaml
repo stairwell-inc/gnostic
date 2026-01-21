@@ -7,18 +7,18 @@ info:
     description: Messaging service
     version: 0.0.1
 paths:
-    /v1/messages/{message_id}:
+    /v1/messages/{messageId}:
         post:
             tags:
                 - Messaging
             operationId: Messaging_CreateMessage
             parameters:
-                - name: message_id
+                - name: messageId
                   in: path
                   required: true
                   schema:
                     type: string
-                - name: not_used
+                - name: notUsed
                   in: query
                   schema:
                     type: string
@@ -41,6 +41,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
+    /v1/messages/{message_id}:
         patch:
             tags:
                 - Messaging
@@ -87,11 +88,11 @@ components:
         Message:
             type: object
             properties:
-                message_id:
+                messageId:
                     type: string
-                body_text:
+                bodyText:
                     type: string
-                not_used:
+                notUsed:
                     type: string
         Message2:
             type: object

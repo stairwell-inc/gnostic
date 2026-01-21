@@ -11,29 +11,27 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-//
 
 syntax = "proto3";
 
-package tests.additional_bindings.message.v1;
+package tests.circulardepth.message.v1;
 
 import "google/api/annotations.proto";
 
-option go_package = "github.com/google/gnostic/apps/protoc-gen-openapi/examples/tests/additional_bindings/message/v1;message";
+option go_package = "github.com/google/gnostic/apps/protoc-gen-openapi/examples/tests/circulardepth/message/v1;message";
 
 service Messaging {
-  rpc UpdateMessage(Message) returns (Message) {
-    option (google.api.http) = {
-      patch: "/v1/messages/{message_id}"
-      body: "text"
-      additional_bindings: {
-        patch: "/v1/messages"
-        body: "*"
-      }
-    };
+  rpc GetMessage(Message) returns (Message) {
+    option (google.api.http) = {get: "/v1/messages/{message_id}"};
   }
 }
+
 message Message {
   string message_id = 1;
-  string text = 2;
+  Sub sub = 2;
+}
+
+message Sub {
+  string subfield = 1;
+  Sub sub = 2;
 }

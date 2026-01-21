@@ -23,12 +23,12 @@ import "google/api/field_behavior.proto";
 option go_package = "github.com/google/gnostic/apps/protoc-gen-openapi/examples/tests/bodymapping/message/v1;message";
 
 service Messaging {
-    rpc UpdateMessage(Message) returns(Message) {
-        option(google.api.http) = {
-            patch: "/v1/messages/{message_id}"
-            body: "*"
-        };
-    }
+  rpc UpdateMessage(Message) returns (Message) {
+    option (google.api.http) = {
+      patch: "/v1/messages/{message_id}"
+      body: "*"
+    };
+  }
 }
 
 message Message {

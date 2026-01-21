@@ -11,29 +11,19 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-//
 
 syntax = "proto3";
 
-package tests.additional_bindings.message.v1;
+package tests.no_default_response.v1;
 
 import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "google/rpc/status.proto";
 
-option go_package = "github.com/google/gnostic/apps/protoc-gen-openapi/examples/tests/additional_bindings/message/v1;message";
+option go_package = "github.com/google/gnostic/apps/protoc-gen-openapi/examples/tests/no_default_response/v1;message";
 
-service Messaging {
-  rpc UpdateMessage(Message) returns (Message) {
-    option (google.api.http) = {
-      patch: "/v1/messages/{message_id}"
-      body: "text"
-      additional_bindings: {
-        patch: "/v1/messages"
-        body: "*"
-      }
-    };
+service Status {
+  rpc GetStatus(google.protobuf.Empty) returns (google.rpc.Status) {
+    option (google.api.http) = {get: "/v1/status"};
   }
-}
-message Message {
-  string message_id = 1;
-  string text = 2;
 }

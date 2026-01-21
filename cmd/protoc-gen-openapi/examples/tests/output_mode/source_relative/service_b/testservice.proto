@@ -1,4 +1,4 @@
-// Copyright 2020 Google LLC.
+// Copyright 2025 Google LLC.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,25 +15,17 @@
 
 syntax = "proto3";
 
-package tests.additional_bindings.message.v1;
+package tests.source_relative.service_v.v1;
 
 import "google/api/annotations.proto";
+import "tests/output_mode/source_relative/shared.proto";
 
-option go_package = "github.com/google/gnostic/apps/protoc-gen-openapi/examples/tests/additional_bindings/message/v1;message";
+option go_package = "github.com/google/gnostic/apps/protoc-gen-openapi/examples/tests/sourcerelatice/serviceb/v1";
 
-service Messaging {
-  rpc UpdateMessage(Message) returns (Message) {
-    option (google.api.http) = {
-      patch: "/v1/messages/{message_id}"
-      body: "text"
-      additional_bindings: {
-        patch: "/v1/messages"
-        body: "*"
-      }
-    };
+// Test service for fq naming
+service TestServiceB {
+  // test method
+  rpc TestMethod(shared.TestRequest) returns (shared.TestResponse) {
+    option (google.api.http) = {get: "/serviceb/v1/test"};
   }
-}
-message Message {
-  string message_id = 1;
-  string text = 2;
 }
