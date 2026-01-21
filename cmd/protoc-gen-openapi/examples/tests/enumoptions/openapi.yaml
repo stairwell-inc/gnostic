@@ -21,7 +21,11 @@ paths:
                 - name: kind
                   in: query
                   schema:
-                    type: integer
+                    enum:
+                        - UNKNOWN_KIND
+                        - KIND_1
+                        - KIND_2
+                    type: string
                     format: enum
             requestBody:
                 content:
@@ -54,7 +58,11 @@ components:
             type: object
             properties:
                 kind:
-                    type: integer
+                    enum:
+                        - UNKNOWN_KIND
+                        - KIND_1
+                        - KIND_2
+                    type: string
                     format: enum
         Status:
             type: object

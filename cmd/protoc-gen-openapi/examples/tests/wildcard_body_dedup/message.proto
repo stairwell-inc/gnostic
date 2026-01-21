@@ -15,21 +15,17 @@
 
 syntax = "proto3";
 
-package tests.additional_bindings.message.v1;
+package tests.wildcard_body_dedup.message.v1;
 
 import "google/api/annotations.proto";
 
-option go_package = "github.com/google/gnostic/apps/protoc-gen-openapi/examples/tests/additional_bindings/message/v1;message";
+option go_package = "github.com/google/gnostic/apps/protoc-gen-openapi/examples/tests/wildcard_body_dedup/message/v1;message";
 
 service Messaging {
   rpc UpdateMessage(Message) returns (Message) {
     option (google.api.http) = {
       patch: "/v1/messages/{message_id}"
-      body: "text"
-      additional_bindings: {
-        patch: "/v1/messages"
-        body: "*"
-      }
+      body: "*"
     };
   }
 }

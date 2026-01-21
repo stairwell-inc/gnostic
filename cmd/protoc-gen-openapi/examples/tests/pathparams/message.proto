@@ -23,29 +23,23 @@ option go_package = "github.com/google/gnostic/apps/protoc-gen-openapi/examples/
 
 service Messaging {
   rpc GetMessage(GetMessageRequest) returns (Message) {
-    option (google.api.http) = {
-      get : "/v1/messages/{message_id}"
-    };
+    option (google.api.http) = {get: "/v1/messages/{message_id}"};
   }
 
   rpc GetUserMessage(GetMessageRequest) returns (Message) {
-    option (google.api.http) = {
-      get : "/v1/users/{user_id}/messages/{message_id}"
-    };
+    option (google.api.http) = {get: "/v1/users/{user_id}/messages/{message_id}"};
   }
 
   rpc CreateMessage(Message) returns (Message) {
     option (google.api.http) = {
-      post : "/v1/messages/{message_id}"
-      body : "*"
+      post: "/v1/messages/{message_id}"
+      body: "*"
     };
   }
 
   // Test irregular plural: series/* should stay as {series}, not {serie}
   rpc GetMessageSeries(GetMessageSeriesRequest) returns (MessageSeries) {
-    option (google.api.http) = {
-      get : "/v1/{name=series/*}"
-    };
+    option (google.api.http) = {get: "/v1/{name=series/*}"};
   }
 }
 

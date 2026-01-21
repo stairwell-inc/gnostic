@@ -26,125 +26,125 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
-    /v1/messages/{message_id}:
+    /v1/messages/{messageId}:
         get:
             tags:
                 - Messaging
             operationId: Messaging_GetMessage
             parameters:
-                - name: message_id
+                - name: messageId
                   in: path
                   required: true
                   schema:
                     type: string
-                - name: string_type
+                - name: stringType
                   in: query
                   schema:
                     type: string
-                - name: recursive_type.parent_id
+                - name: recursiveType.parentId
                   in: query
                   schema:
                     type: integer
                     format: int32
-                - name: recursive_type.child.child_id
+                - name: recursiveType.child.childId
                   in: query
                   schema:
                     type: integer
                     format: int32
-                - name: recursive_type.child.parent.parent_id
+                - name: recursiveType.child.parent.parentId
                   in: query
                   schema:
                     type: integer
                     format: int32
-                - name: recursive_type.child.parent.child.child_id
+                - name: recursiveType.child.parent.child.childId
                   in: query
                   schema:
                     type: integer
                     format: int32
-                - name: embedded_type.message_id
+                - name: embeddedType.messageId
                   in: query
                   schema:
                     type: string
-                - name: sub_type.message_id
+                - name: subType.messageId
                   in: query
                   schema:
                     type: string
-                - name: sub_type.sub_sub_message.message_id
+                - name: subType.subSubMessage.messageId
                   in: query
                   schema:
                     type: string
-                - name: sub_type.sub_sub_message.integers
+                - name: subType.subSubMessage.integers
                   in: query
                   schema:
                     type: array
                     items:
                         type: integer
                         format: int32
-                - name: repeated_type
+                - name: repeatedType
                   in: query
                   schema:
                     type: array
                     items:
                         type: string
-                - name: value_type
+                - name: valueType
                   in: query
                   description: Description of value
                   schema:
                     $ref: '#/components/schemas/GoogleProtobufValue'
-                - name: repeated_value_type
+                - name: repeatedValueType
                   in: query
                   description: Description of repeated value
                   schema:
                     type: array
                     items:
                         $ref: '#/components/schemas/GoogleProtobufValue'
-                - name: bool_value_type
+                - name: boolValueType
                   in: query
                   schema:
                     type: boolean
-                - name: bytes_value_type
+                - name: bytesValueType
                   in: query
                   schema:
                     type: string
                     format: bytes
-                - name: int32_value_type
+                - name: int32ValueType
                   in: query
                   schema:
                     type: integer
                     format: int32
-                - name: uint32_value_type
+                - name: uint32ValueType
                   in: query
                   schema:
                     type: integer
                     format: uint32
-                - name: string_value_type
+                - name: stringValueType
                   in: query
                   schema:
                     type: string
-                - name: int64_value_type
+                - name: int64ValueType
                   in: query
                   schema:
                     type: string
-                - name: uint64_value_type
+                - name: uint64ValueType
                   in: query
                   schema:
                     type: string
-                - name: float_value_type
+                - name: floatValueType
                   in: query
                   schema:
                     type: number
                     format: float
-                - name: double_value_type
+                - name: doubleValueType
                   in: query
                   schema:
                     type: number
                     format: double
-                - name: timestamp_type
+                - name: timestampType
                   in: query
                   schema:
                     type: string
                     format: date-time
-                - name: duration_type
+                - name: durationType
                   in: query
                   schema:
                     pattern: ^-?(?:0|[1-9][0-9]{0,11})(?:\.[0-9]{1,9})?s$
@@ -168,7 +168,7 @@ paths:
                 - Messaging
             operationId: Messaging_CreateMessage
             parameters:
-                - name: message_id
+                - name: messageId
                   in: path
                   required: true
                   schema:
@@ -197,119 +197,119 @@ paths:
                 - Messaging
             operationId: Messaging_UpdateMessage
             parameters:
-                - name: message_id
+                - name: messageId
                   in: path
                   required: true
                   schema:
                     type: string
-                - name: string_type
+                - name: stringType
                   in: query
                   schema:
                     type: string
-                - name: recursive_type.parent_id
+                - name: recursiveType.parentId
                   in: query
                   schema:
                     type: integer
                     format: int32
-                - name: recursive_type.child.child_id
+                - name: recursiveType.child.childId
                   in: query
                   schema:
                     type: integer
                     format: int32
-                - name: recursive_type.child.parent.parent_id
+                - name: recursiveType.child.parent.parentId
                   in: query
                   schema:
                     type: integer
                     format: int32
-                - name: recursive_type.child.parent.child.child_id
+                - name: recursiveType.child.parent.child.childId
                   in: query
                   schema:
                     type: integer
                     format: int32
-                - name: embedded_type.message_id
+                - name: embeddedType.messageId
                   in: query
                   schema:
                     type: string
-                - name: sub_type.message_id
+                - name: subType.messageId
                   in: query
                   schema:
                     type: string
-                - name: sub_type.sub_sub_message.message_id
+                - name: subType.subSubMessage.messageId
                   in: query
                   schema:
                     type: string
-                - name: sub_type.sub_sub_message.integers
+                - name: subType.subSubMessage.integers
                   in: query
                   schema:
                     type: array
                     items:
                         type: integer
                         format: int32
-                - name: repeated_type
+                - name: repeatedType
                   in: query
                   schema:
                     type: array
                     items:
                         type: string
-                - name: value_type
+                - name: valueType
                   in: query
                   description: Description of value
                   schema:
                     $ref: '#/components/schemas/GoogleProtobufValue'
-                - name: repeated_value_type
+                - name: repeatedValueType
                   in: query
                   description: Description of repeated value
                   schema:
                     type: array
                     items:
                         $ref: '#/components/schemas/GoogleProtobufValue'
-                - name: bool_value_type
+                - name: boolValueType
                   in: query
                   schema:
                     type: boolean
-                - name: bytes_value_type
+                - name: bytesValueType
                   in: query
                   schema:
                     type: string
                     format: bytes
-                - name: int32_value_type
+                - name: int32ValueType
                   in: query
                   schema:
                     type: integer
                     format: int32
-                - name: uint32_value_type
+                - name: uint32ValueType
                   in: query
                   schema:
                     type: integer
                     format: uint32
-                - name: string_value_type
+                - name: stringValueType
                   in: query
                   schema:
                     type: string
-                - name: int64_value_type
+                - name: int64ValueType
                   in: query
                   schema:
                     type: string
-                - name: uint64_value_type
+                - name: uint64ValueType
                   in: query
                   schema:
                     type: string
-                - name: float_value_type
+                - name: floatValueType
                   in: query
                   schema:
                     type: number
                     format: float
-                - name: double_value_type
+                - name: doubleValueType
                   in: query
                   schema:
                     type: number
                     format: double
-                - name: timestamp_type
+                - name: timestampType
                   in: query
                   schema:
                     type: string
                     format: date-time
-                - name: duration_type
+                - name: durationType
                   in: query
                   schema:
                     pattern: ^-?(?:0|[1-9][0-9]{0,11})(?:\.[0-9]{1,9})?s$
@@ -389,29 +389,29 @@ components:
         Message:
             type: object
             properties:
-                message_id:
+                messageId:
                     type: string
-                string_type:
+                stringType:
                     type: string
-                recursive_type:
+                recursiveType:
                     $ref: '#/components/schemas/RecursiveParent'
-                embedded_type:
+                embeddedType:
                     $ref: '#/components/schemas/Message_EmbMessage'
-                sub_type:
+                subType:
                     $ref: '#/components/schemas/SubMessage'
-                repeated_type:
+                repeatedType:
                     type: array
                     items:
                         type: string
-                repeated_sub_type:
+                repeatedSubType:
                     type: array
                     items:
                         $ref: '#/components/schemas/SubMessage'
-                repeated_recursive_type:
+                repeatedRecursiveType:
                     type: array
                     items:
                         $ref: '#/components/schemas/RecursiveParent'
-                map_type:
+                mapType:
                     type: object
                     additionalProperties:
                         type: string
@@ -421,53 +421,53 @@ components:
                     type: array
                     items:
                         type: object
-                value_type:
+                valueType:
                     allOf:
                         - $ref: '#/components/schemas/GoogleProtobufValue'
                     description: Description of value
-                repeated_value_type:
+                repeatedValueType:
                     type: array
                     items:
                         $ref: '#/components/schemas/GoogleProtobufValue'
                     description: Description of repeated value
-                bool_value_type:
+                boolValueType:
                     type: boolean
-                bytes_value_type:
+                bytesValueType:
                     type: string
                     format: bytes
-                int32_value_type:
+                int32ValueType:
                     type: integer
                     format: int32
-                uint32_value_type:
+                uint32ValueType:
                     type: integer
                     format: uint32
-                string_value_type:
+                stringValueType:
                     type: string
-                int64_value_type:
+                int64ValueType:
                     type: string
-                uint64_value_type:
+                uint64ValueType:
                     type: string
-                float_value_type:
+                floatValueType:
                     type: number
                     format: float
-                double_value_type:
+                doubleValueType:
                     type: number
                     format: double
-                timestamp_type:
+                timestampType:
                     type: string
                     format: date-time
-                duration_type:
+                durationType:
                     pattern: ^-?(?:0|[1-9][0-9]{0,11})(?:\.[0-9]{1,9})?s$
                     type: string
         Message_EmbMessage:
             type: object
             properties:
-                message_id:
+                messageId:
                     type: string
         RecursiveChild:
             type: object
             properties:
-                child_id:
+                childId:
                     type: integer
                     format: int32
                 parent:
@@ -475,7 +475,7 @@ components:
         RecursiveParent:
             type: object
             properties:
-                parent_id:
+                parentId:
                     type: integer
                     format: int32
                 child:
@@ -499,14 +499,14 @@ components:
         SubMessage:
             type: object
             properties:
-                message_id:
+                messageId:
                     type: string
-                sub_sub_message:
+                subSubMessage:
                     $ref: '#/components/schemas/SubSubMessage'
         SubSubMessage:
             type: object
             properties:
-                message_id:
+                messageId:
                     type: string
                 integers:
                     type: array

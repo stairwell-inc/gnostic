@@ -4,17 +4,22 @@
 openapi: 3.0.3
 info:
     title: Messaging API
+    description: Messaging service
     version: 0.0.1
 paths:
-    /v1/messages/{messageId}:
-        patch:
+    /v1/messages/{message_id}:
+        post:
             tags:
                 - Messaging
-            operationId: Messaging_UpdateMessage
+            operationId: Messaging_CreateMessage
             parameters:
-                - name: messageId
+                - name: message_id
                   in: path
                   required: true
+                  schema:
+                    type: string
+                - name: not_used
+                  in: query
                   schema:
                     type: string
             requestBody:
@@ -36,6 +41,39 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
+        patch:
+            tags:
+                - Messaging
+            operationId: Messaging_UpdateMessage
+            parameters:
+                - name: message_id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - name: not_used
+                  in: query
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: string
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Message2'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
 components:
     schemas:
         GoogleProtobufAny:
@@ -49,9 +87,20 @@ components:
         Message:
             type: object
             properties:
-                messageId:
+                message_id:
                     type: string
-                text:
+                body_text:
+                    type: string
+                not_used:
+                    type: string
+        Message2:
+            type: object
+            properties:
+                message_id:
+                    type: string
+                body_text:
+                    type: string
+                not_used:
                     type: string
         Status:
             type: object

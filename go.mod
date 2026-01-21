@@ -19,6 +19,7 @@ require (
 
 require (
 	github.com/buger/jsonparser v1.1.1 // indirect
+	github.com/pkg/diff v0.0.0-20241224192749-4e6772a4315c // indirect
 	golang.org/x/mod v0.27.0 // indirect
 	golang.org/x/net v0.43.0 // indirect
 	golang.org/x/sync v0.16.0 // indirect

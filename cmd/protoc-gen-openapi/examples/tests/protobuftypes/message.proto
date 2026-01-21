@@ -17,14 +17,14 @@ syntax = "proto3";
 
 package tests.protobuftypes.message.v1;
 
-import "google/api/client.proto";
 import "google/api/annotations.proto";
+import "google/api/client.proto";
 import "google/api/httpbody.proto";
-import "google/protobuf/struct.proto";
-import "google/protobuf/empty.proto";
-import "google/protobuf/wrappers.proto";
-import "google/protobuf/timestamp.proto";
 import "google/protobuf/duration.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
 
 option go_package = "github.com/google/gnostic/apps/protoc-gen-openapi/examples/tests/protobuftypes/message/v1;message";
 
@@ -32,37 +32,31 @@ service Messaging {
   option (google.api.default_host) = "foo.googleapi.com";
   rpc CreateMessage(Message) returns (Message) {
     option (google.api.http) = {
-      post : "/v1/messages/{message_id}"
-      body : "*"
+      post: "/v1/messages/{message_id}"
+      body: "*"
     };
   }
   rpc CreateMessagesFromCSV(google.api.HttpBody) returns (google.api.HttpBody) {
     option (google.api.http) = {
-      post : "/v1/messages:csv"
-      body : "*"
+      post: "/v1/messages:csv"
+      body: "*"
     };
   }
   rpc ListMessages(google.protobuf.Empty) returns (google.protobuf.Value) {
-    option (google.api.http) = {
-      get : "/v1/messages"
-    };
+    option (google.api.http) = {get: "/v1/messages"};
   }
   // OpenAPI does not allow requestBody in GET operations.
   // But it should not convert it to query params either.
   rpc ListMessagesCSV(google.api.HttpBody) returns (google.api.HttpBody) {
-    option (google.api.http) = {
-      get : "/v1/messages:csv"
-    };
+    option (google.api.http) = {get: "/v1/messages:csv"};
   }
   rpc GetMessage(Message) returns (Message) {
-    option (google.api.http) = {
-      get : "/v1/messages/{message_id}"
-    };
+    option (google.api.http) = {get: "/v1/messages/{message_id}"};
   }
   rpc UpdateMessage(Message) returns (google.protobuf.Struct) {
     option (google.api.http) = {
-      patch : "/v1/messages/{message_id}"
-      body : "body"
+      patch: "/v1/messages/{message_id}"
+      body: "body"
     };
   }
 }
@@ -87,7 +81,9 @@ message SubSubMessage {
 }
 
 message Message {
-  message EmbMessage { string message_id = 1; }
+  message EmbMessage {
+    string message_id = 1;
+  }
   string message_id = 1;
   string string_type = 2;
   RecursiveParent recursive_type = 3;

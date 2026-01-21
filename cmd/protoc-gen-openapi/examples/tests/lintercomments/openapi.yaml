@@ -14,21 +14,21 @@ paths:
             description: TestMethod demonstrates single-line linter comment filtering
             operationId: TestService_TestMethod
             parameters:
-                - name: field_with_single_line_comment
+                - name: fieldWithSingleLineComment
                   in: query
                   description: |-
                     This field has a single-line linter comment that should be filtered out.
                      This comment should remain visible.
                   schema:
                     type: string
-                - name: field_with_multiline_comment
+                - name: fieldWithMultilineComment
                   in: query
                   description: |-
                     This field has a multi-line linter comment that should be filtered out.
                      This comment should remain visible.
                   schema:
                     type: string
-                - name: normal_field
+                - name: normalField
                   in: query
                   description: |-
                     Normal field without any linter comments.

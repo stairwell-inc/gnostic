@@ -51,15 +51,15 @@ components:
             properties:
                 sub:
                     $ref: '#/components/schemas/Message_Sub'
-                sub_input:
+                subInput:
                     writeOnly: true
                     allOf:
                         - $ref: '#/components/schemas/Message_Sub'
-                sub_output:
+                subOutput:
                     readOnly: true
                     allOf:
                         - $ref: '#/components/schemas/Message_Sub'
-                sub_desc:
+                subDesc:
                     allOf:
                         - $ref: '#/components/schemas/Message_Sub'
                     description: this sub has a description

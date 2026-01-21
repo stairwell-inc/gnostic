@@ -21,7 +21,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            type: string
+                            $ref: '#/components/schemas/Message_Body'
                 required: true
             responses:
                 "200":
@@ -51,6 +51,11 @@ components:
             properties:
                 messageId:
                     type: string
+                text:
+                    type: string
+        Message_Body:
+            type: object
+            properties:
                 text:
                     type: string
         Status:

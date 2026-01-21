@@ -6,13 +6,13 @@ info:
     title: Messaging API
     version: 0.0.1
 paths:
-    /v1/messages/{message_id}:
+    /v1/messages/{messageId}:
         patch:
             tags:
                 - Messaging
             operationId: Messaging_UpdateMessage
             parameters:
-                - name: message_id
+                - name: messageId
                   in: path
                   required: true
                   schema:
@@ -56,33 +56,33 @@ components:
         Message:
             type: object
             properties:
-                message_id:
+                messageId:
                     type: string
-                another_message:
+                anotherMessage:
                     $ref: '#/components/schemas/AnotherMessage'
-                sub_message:
+                subMessage:
                     $ref: '#/components/schemas/Message_SubMessage'
-                string_list:
+                stringList:
                     type: array
                     items:
                         type: string
-                sub_message_list:
+                subMessageList:
                     type: array
                     items:
                         $ref: '#/components/schemas/Message_SubMessage'
-                object_list:
+                objectList:
                     type: array
                     items:
                         type: object
-                strings_map:
+                stringsMap:
                     type: object
                     additionalProperties:
                         type: string
-                sub_messages_map:
+                subMessagesMap:
                     type: object
                     additionalProperties:
                         $ref: '#/components/schemas/Message_SubMessage'
-                objects_map:
+                objectsMap:
                     type: object
                     additionalProperties:
                         type: object

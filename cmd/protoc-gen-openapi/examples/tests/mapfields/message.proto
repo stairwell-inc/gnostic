@@ -23,31 +23,31 @@ import "google/protobuf/struct.proto";
 option go_package = "github.com/google/gnostic/apps/protoc-gen-openapi/examples/tests/mapfields/message/v1;message";
 
 service Messaging {
-    rpc UpdateMessage(Message) returns(Message) {
-        option(google.api.http) = {
-            patch: "/v1/messages/{message_id}"
-            body: "*"
-        };
-    }
+  rpc UpdateMessage(Message) returns (Message) {
+    option (google.api.http) = {
+      patch: "/v1/messages/{message_id}"
+      body: "*"
+    };
+  }
 }
 
 message AnotherMessage {
-    int64 id = 1;
-    string label = 2;
+  int64 id = 1;
+  string label = 2;
 }
 
 message Message {
-    message SubMessage {
-        int64 id = 1;
-        string label = 2;
-    }
-    string message_id = 1;
-    AnotherMessage another_message = 2;
-    SubMessage sub_message = 3;
-    repeated string string_list = 4;
-    repeated SubMessage sub_message_list = 5;
-    repeated google.protobuf.Struct object_list = 6;
-    map<string, string> strings_map = 7;
-    map<string, SubMessage> sub_messages_map = 8;
-    map<string, google.protobuf.Struct> objects_map = 9;
+  message SubMessage {
+    int64 id = 1;
+    string label = 2;
+  }
+  string message_id = 1;
+  AnotherMessage another_message = 2;
+  SubMessage sub_message = 3;
+  repeated string string_list = 4;
+  repeated SubMessage sub_message_list = 5;
+  repeated google.protobuf.Struct object_list = 6;
+  map<string, string> strings_map = 7;
+  map<string, SubMessage> sub_messages_map = 8;
+  map<string, google.protobuf.Struct> objects_map = 9;
 }
