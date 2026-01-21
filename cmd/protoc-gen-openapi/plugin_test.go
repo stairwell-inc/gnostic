@@ -35,9 +35,6 @@ var (
 	pluginPath string
 )
 
-// todo: verify EVERYTHING
-// todo: buf fmt -w all protos under tests
-
 func TestGenOpenAPI(t *testing.T) {
 	fixtureTest(t, "library example", "examples/google/example/library/v1/library.proto")
 	fixtureTest(t, "additional bindings", "examples/tests/additional_bindings/message.proto")

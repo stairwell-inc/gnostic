@@ -15,11 +15,11 @@
 
 syntax = "proto3";
 
-package tests.jsonnames.message.v1;
+package tests.jsonoptions.message.v1;
 
 import "google/api/annotations.proto";
 
-option go_package = "github.com/google/gnostic/apps/protoc-gen-openapi/examples/tests/jsonnames/message/v1;message";
+option go_package = "github.com/google/gnostic/apps/protoc-gen-openapi/examples/tests/jsonoptions/message/v1;message";
 
 // Messaging service
 service Messaging {

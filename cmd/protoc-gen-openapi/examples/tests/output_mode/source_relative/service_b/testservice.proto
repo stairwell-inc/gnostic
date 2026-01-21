@@ -15,12 +15,12 @@
 
 syntax = "proto3";
 
-package tests.source_relative.service_v.v1;
+package tests.output_mode.source_relative.service_b.v1;
 
 import "google/api/annotations.proto";
 import "tests/output_mode/source_relative/shared.proto";
 
-option go_package = "github.com/google/gnostic/apps/protoc-gen-openapi/examples/tests/sourcerelatice/serviceb/v1";
+option go_package = "github.com/google/gnostic/apps/protoc-gen-openapi/examples/tests/output_mode/source_relative/service_b/v1";
 
 // Test service for fq naming
 service TestServiceB {
