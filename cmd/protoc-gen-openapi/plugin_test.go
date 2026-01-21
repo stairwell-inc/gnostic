@@ -50,6 +50,7 @@ func TestGenOpenAPI(t *testing.T) {
 	fixtureTest(t, "path parameters", "examples/tests/pathparams/message.proto")
 	fixtureTest(t, "protobuf types", "examples/tests/protobuftypes/message.proto")
 	fixtureTest(t, "json options", "examples/tests/jsonoptions/message.proto")
+	optionFixtureTest(t, "proto naming", "examples/tests/naming_proto/message.proto", "naming=proto")
 	optionFixtureTest(t, "string enums", "examples/tests/enumoptions/message.proto", "enum_type=string")
 	optionFixtureTest(t, "wildcard_body_dedup", "examples/tests/wildcard_body_dedup/message.proto", "wildcard_body_dedup=true")
 	optionFixtureTest(t, "no_default_response", "examples/tests/no_default_response/message.proto", "default_response=false")
