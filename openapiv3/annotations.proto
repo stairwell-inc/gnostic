@@ -47,9 +47,16 @@ extend google.protobuf.FileOptions {
   Document document = 1143;
 }
 
-// Hint for a synthetic path parameter derived from AIP-style resource name
-// patterns like {name=publishers/*/books/*}. The name is the singularized
-// collection name (e.g., "publisher", "book"), not the original field name.
+// Manually specify a description or examples for a generated OpenAPI v3 path
+// parameter.
+// This option is useful for HTTP rules which follow a resource name pattern
+// variable binding, such as:
+//   '/v1/{name=publishers/*/books/*}'
+// where protoc-gen-openapi generates path parameter names by
+// replacing the wildcards with the singular form of the segment before it
+// (e.g. '/v1/publishers/{publisher}/books{book}').
+// By default, these path parameters receive a generic description such as
+// 'The publisher id', which can be overridden with this option.
 message PathParamHint {
   string name = 1;
   string description = 2;
@@ -58,7 +65,6 @@ message PathParamHint {
   repeated string example = 3;
 }
 
-// Hints for synthetic path parameters at the method level.
 message PathParamHints {
   repeated PathParamHint hint = 1;
 }
