@@ -18,11 +18,17 @@ import (
 	openapiv3 "github.com/google/gnostic-models/openapiv3"
 )
 
+type (
+	PathParamHint  = openapiv3.PathParamHint
+	PathParamHints = openapiv3.PathParamHints
+)
+
 var (
-	E_Document  = openapiv3.E_Document
-	E_Operation = openapiv3.E_Operation
-	E_Schema    = openapiv3.E_Schema
-	E_Property  = openapiv3.E_Property
+	E_Document       = openapiv3.E_Document
+	E_Operation      = openapiv3.E_Operation
+	E_Schema         = openapiv3.E_Schema
+	E_Property       = openapiv3.E_Property
+	E_PathParamHints = openapiv3.E_PathParamHints
 )
 
 var File_openapiv3_annotations_proto = openapiv3.File_openapiv3_annotations_proto

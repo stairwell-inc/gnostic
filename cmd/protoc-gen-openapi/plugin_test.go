@@ -45,6 +45,7 @@ func TestGenOpenAPI(t *testing.T) {
 	fixtureTest(t, "skip unannotated services", "examples/tests/noannotations/message.proto")
 	fixtureTest(t, "openapiv3annotations", "examples/tests/openapiv3annotations/message.proto")
 	fixtureTest(t, "path parameters", "examples/tests/pathparams/message.proto")
+	fixtureTest(t, "path param hints", "examples/tests/pathparamhints/message.proto")
 	fixtureTest(t, "protobuf types", "examples/tests/protobuftypes/message.proto")
 	fixtureTest(t, "json options", "examples/tests/jsonoptions/message.proto")
 	optionFixtureTest(t, "proto naming", "examples/tests/naming_proto/message.proto", "naming=proto")
