@@ -550,22 +550,40 @@ func (g *OpenAPIv3Generator) buildOperationV3(
 				if hint.GetDescription() != "" {
 					param.Description = hint.GetDescription()
 				}
-				examples := hint.GetExample()
-				switch len(examples) {
-				case 0:
-				case 1:
-					param.Example = &v3.Any{Yaml: examples[0]}
-				default:
+				example := hint.GetExample()
+				examples := hint.GetExamples()
+				if example != "" {
+					if len(examples) > 0 {
+						log.Printf("path_param_hints: both 'example' and 'examples' set for parameter %q; using 'example'", namedPathParameter)
+					}
+					param.Example = &v3.Any{Yaml: example}
+				} else if len(examples) > 0 {
 					param.Examples = &v3.ExamplesOrReferences{
 						AdditionalProperties: make([]*v3.NamedExampleOrReference, 0, len(examples)),
 					}
 					for i, ex := range examples {
+						switch {
+						case ex.GetName() == "":
+							log.Printf("path_param_hints: examples[%d] missing required 'name' field, skipping", i)
+							continue
+						case ex.GetValue() == "":
+							log.Printf("path_param_hints: examples[%d] missing required 'value' field, skipping", i)
+							continue
+						}
+						oapiExample := &v3.Example{
+							Value: &v3.Any{
+								Yaml: ex.GetValue(),
+							},
+						}
+						if ex.GetDescription() != "" {
+							oapiExample.Description = ex.GetDescription()
+						}
 						param.Examples.AdditionalProperties = append(param.Examples.AdditionalProperties,
 							&v3.NamedExampleOrReference{
-								Name: fmt.Sprintf("example%d", i+1),
+								Name: ex.GetName(),
 								Value: &v3.ExampleOrReference{
 									Oneof: &v3.ExampleOrReference_Example{
-										Example: &v3.Example{Value: &v3.Any{Yaml: ex}},
+										Example: oapiExample,
 									},
 								},
 							})

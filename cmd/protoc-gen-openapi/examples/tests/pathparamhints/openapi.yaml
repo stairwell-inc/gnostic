@@ -28,10 +28,51 @@ paths:
                   schema:
                     type: string
                   examples:
-                    example1:
+                    isbn example 1:
                         value: isbn-123
-                    example2:
+                    isbn example 2:
+                        description: example2 description
                         value: isbn-456
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Book'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /v2/publishers/{publisher}/books/{book}:
+        get:
+            tags:
+                - Library
+            description: Get a book by its resource name (v2)
+            operationId: Library_GetBookv2
+            parameters:
+                - name: publisher
+                  in: path
+                  description: The unique publisher identifier.
+                  required: true
+                  schema:
+                    type: string
+                  example: 2
+                - name: book
+                  in: path
+                  description: The book's ISBN.
+                  required: true
+                  schema:
+                    type: string
+                  examples:
+                    isbn example 1:
+                        description: isbn example 1
+                        value: isbn-100
+                    isbn example 4:
+                        description: isbn example 4
+                        value: isbn-400
             responses:
                 "200":
                     description: OK
