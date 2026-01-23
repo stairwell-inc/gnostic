@@ -26,4 +26,4 @@ require (
 	golang.org/x/text v0.28.0 // indirect
 )
 
-replace github.com/google/gnostic-models => github.com/stairwell-inc/gnostic-models v0.0.0-20260122020652-90f065019624
+replace github.com/google/gnostic-models => github.com/stairwell-inc/gnostic-models v0.2.0-swell

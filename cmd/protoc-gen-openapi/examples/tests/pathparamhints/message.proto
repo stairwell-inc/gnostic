@@ -49,8 +49,28 @@ service Library {
       hint: {
         name: "book"
         description: "The book's ISBN."
-        example: "isbn-123"
-        example: "isbn-456"
+        examples: {name: "isbn example 1" value: "isbn-123" }
+        examples: {name: "isbn example 2" value: "isbn-456" description: "example2 description"}
+      }
+    };
+  }
+  // Get a book by its resource name (v2)
+  rpc GetBookv2(GetBookRequest) returns (Book) {
+    option (google.api.http) = {get: "/v2/{name=publishers/*/books/*}"};
+    option (openapi.v3.path_param_hints) = {
+      hint: {
+        name: "publisher"
+        description: "The unique publisher identifier."
+        example: "2"
+        examples: {name: "publisher named example" value: "3" description:"another example" } // overridden, will warn, but not appear
+      }
+      hint: {
+        name: "book"
+        description: "The book's ISBN."
+        examples: {name: "isbn example 1" value: "isbn-100" description: "isbn example 1" }
+        examples: {value: "isbn-200" description: "isbn example 2" } // no name, skipped
+        examples: {name: "isbn example 3" description: "isbn example 3" } // no value, skipped
+        examples: {name: "isbn example 4" value: "isbn-400" description: "isbn example 4" }
       }
     };
   }

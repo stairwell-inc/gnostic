@@ -19,8 +19,9 @@ import (
 )
 
 type (
-	PathParamHint  = openapiv3.PathParamHint
-	PathParamHints = openapiv3.PathParamHints
+	PathParamHint    = openapiv3.PathParamHint
+	PathParamHints   = openapiv3.PathParamHints
+	PathParamExample = openapiv3.PathParamExample
 )
 
 var (
