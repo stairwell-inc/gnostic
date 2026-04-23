@@ -50,6 +50,12 @@ type Configuration struct {
 
 const (
 	infoURL = "https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi"
+
+	// openAPIv3Package is the proto package of this generator's own
+	// annotation types. Messages in this package are option-carriers
+	// (e.g. v3.Operation, v3.Tag) and must never be emitted as entries
+	// in components.schemas of the generated document.
+	openAPIv3Package = "openapi.v3"
 )
 
 // In order to dynamically add google.rpc.Status responses we need
@@ -137,6 +143,16 @@ func (g *OpenAPIv3Generator) buildDocumentV3() *v3.Document {
 	for len(g.reflect.requiredSchemas) > 0 {
 		count := len(g.reflect.requiredSchemas)
 		for _, file := range g.plugin.Files {
+			// Skip the openapi.v3 annotation types. They exist only to
+			// decorate proto options (MethodOptions, MessageOptions, etc.)
+			// and are never a legitimate part of an API surface, so they
+			// must not appear in components.schemas. Without this guard,
+			// short-name schemas (naming=json) like "Tag" can collide
+			// with user messages of the same short name; whichever file
+			// is iterated first wins and the other is silently dropped.
+			if file.Desc.Package() == openAPIv3Package {
+				continue
+			}
 			g.addSchemasForMessagesToDocumentV3(d, file.Messages)
 		}
 		g.reflect.requiredSchemas = g.reflect.requiredSchemas[count:len(g.reflect.requiredSchemas)]
