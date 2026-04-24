@@ -53,9 +53,9 @@ const infoURL = "https://github.com/google/gnostic/tree/master/cmd/protoc-gen-op
 // wellknownAnnotationPackages lists proto packages whose messages are
 // option-carriers (e.g. openapi.v3.Operation, openapi.v3.Tag) and must
 // never be emitted as entries in components/schemas.
-var wellknownAnnotationPackages = map[string]struct{}{
-	"openapi.v3": {},
-}
+var wellknownAnnotationPackages = newNameSet(
+	"openapi.v3",
+)
 
 // In order to dynamically add google.rpc.Status responses we need
 // to know the message descriptors for google.rpc.Status as well
@@ -142,7 +142,7 @@ func (g *OpenAPIv3Generator) buildDocumentV3() *v3.Document {
 	for len(g.reflect.requiredSchemas) > 0 {
 		count := len(g.reflect.requiredSchemas)
 		for _, file := range g.plugin.Files {
-			if _, ok := wellknownAnnotationPackages[string(file.Desc.Package())]; ok {
+			if wellknownAnnotationPackages.Contains(file.Desc.Package()) {
 				continue
 			}
 			g.addSchemasForMessagesToDocumentV3(d, file.Messages)

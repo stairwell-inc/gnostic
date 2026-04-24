@@ -53,3 +53,20 @@ func getValueField(message protoreflect.MessageDescriptor) protoreflect.FieldDes
 	fields := message.Fields()
 	return fields.ByName("value")
 }
+
+type nameSet struct {
+	m map[string]struct{}
+}
+
+func newNameSet(names ...string) *nameSet {
+	m := map[string]struct{}{}
+	for _, name := range names {
+		m[name] = struct{}{}
+	}
+	return &nameSet{m: m}
+}
+
+func (s *nameSet) Contains(name protoreflect.FullName) bool {
+	_, found := s.m[string(name)]
+	return found
+}
