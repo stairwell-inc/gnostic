@@ -710,22 +710,31 @@ func (g *OpenAPIv3Generator) buildOperationV3(
 			}
 		}
 
-		op.RequestBody = &v3.RequestBodyOrReference{
-			Oneof: &v3.RequestBodyOrReference_RequestBody{
-				RequestBody: &v3.RequestBody{
-					Required: true,
-					Content: &v3.MediaTypes{
-						AdditionalProperties: []*v3.NamedMediaType{
-							{
-								Name: "application/json",
-								Value: &v3.MediaType{
-									Schema: requestSchema,
+		// createWildcardBodyRequestSchema returns a nil schema when the body is
+		// "*" but every request field is already bound by the path template —
+		// there is nothing left to send, so omit the request body entirely
+		// rather than demanding an unfillable empty object (ENG-30). This
+		// suppression is scoped to the wildcard body; a field-specific body
+		// retains its prior behavior even if its schema is unresolved.
+		omitEmptyWildcardBody := bodyField == "*" && requestSchema == nil
+		if !omitEmptyWildcardBody {
+			op.RequestBody = &v3.RequestBodyOrReference{
+				Oneof: &v3.RequestBodyOrReference_RequestBody{
+					RequestBody: &v3.RequestBody{
+						Required: true,
+						Content: &v3.MediaTypes{
+							AdditionalProperties: []*v3.NamedMediaType{
+								{
+									Name: "application/json",
+									Value: &v3.MediaType{
+										Schema: requestSchema,
+									},
 								},
 							},
 						},
 					},
 				},
-			},
+			}
 		}
 	}
 	return op, path
@@ -880,6 +889,19 @@ func (g *OpenAPIv3Generator) createWildcardBodyRequestSchema(d *v3.Document, mes
 	// we're done.
 	if len(excludedFields) == 0 {
 		return g.reflect.schemaOrReferenceForMessage(message.Desc)
+	}
+
+	// If every request field is bound by the path template, deduplication
+	// leaves an empty body object. Signal "no request body" by returning nil so
+	// the caller omits the requestBody rather than emitting a required but
+	// unfillable empty object (ENG-30). excludedFields is already filtered to
+	// the request type's own fields, so dedup to a set and compare cardinality.
+	excludedSet := make(map[string]bool, len(excludedFields))
+	for _, name := range excludedFields {
+		excludedSet[name] = true
+	}
+	if len(excludedSet) == len(messageFields) {
+		return nil
 	}
 
 	requestTypeName := g.reflect.formatMessageName(message.Desc)
