@@ -52,6 +52,7 @@ func TestGenOpenAPI(t *testing.T) {
 	optionFixtureTest(t, "proto naming", "examples/tests/naming_proto/message.proto", "naming=proto")
 	optionFixtureTest(t, "string enums", "examples/tests/enumoptions/message.proto", "enum_type=string")
 	optionFixtureTest(t, "wildcard_body_dedup", "examples/tests/wildcard_body_dedup/message.proto", "wildcard_body_dedup=true")
+	optionFixtureTest(t, "wildcard_body_empty", "examples/tests/wildcard_body_empty/message.proto", "wildcard_body_dedup=true")
 	optionFixtureTest(t, "no_default_response", "examples/tests/no_default_response/message.proto", "default_response=false")
 	optionFixtureTest(t, "circular depth", "examples/tests/circulardepth/message.proto", "depth=3")
 	optionFixtureTest(t, "fully-qualified schema naming", "examples/tests/fq_schema_naming/message.proto", "fq_schema_naming=true")
